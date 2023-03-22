@@ -35,11 +35,11 @@ export class AuthService {
     if (!user) {
       throw new BadRequestException('User not found!');
     }
-    var passwordIsValid = this.bcryptSrv.compare(password, user.password);
+    let passwordIsValid = await this.bcryptSrv.compare(password, user.password);
     if (!passwordIsValid) {
       throw new BadRequestException('Invalid password');
     }
-    var token = jwt.sign({ id: user.id }, process.env.SECRET_KEY, {
+    let token = jwt.sign({ id: user.id }, process.env.SECRET_KEY, {
       expiresIn: 86400, // 24 hours
     });
     return {
