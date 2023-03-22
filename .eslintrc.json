@@ -1,0 +1,35 @@
+{
+  "root": true,
+  "plugins": ["jest"],
+  "extends":[
+    "airbnb-typescript/base",
+    "plugin:jest/recommended",
+    "plugin:jest/style",
+    "plugin:prettier/recommended"
+  ],
+  "parserOptions":{
+    "project":"./tsconfig.json"
+  },
+  "ignorePatterns":[
+    "/dist",
+    "/coverage"
+  ],
+  "rules":{
+    "@typescript-eslint/no-explicit-any": "error",
+    "class-methods-use-this": "off",
+    "import/prefer-default-export":"off",
+    "quotes": [2, "single", { "avoidEscape": true }],
+    "import/no-extraneous-dependencies":[
+      "error",
+      {
+        "devDependencies": true
+      }
+    ],
+    "jest/expect-expect": [
+      "error",
+      {
+        "assertFunctionNames": ["expect", "request.**.expect"]
+      }
+    ]
+  }
+}
