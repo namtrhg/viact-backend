@@ -1,6 +1,7 @@
 import { BcryptService } from 'auth/bcrypt.service';
 import { User } from 'user/user.entity';
 import { UserService } from 'user/user.service';
+import { JwtService } from '@nestjs/jwt';
 
 import { BadRequestException, Injectable } from '@nestjs/common';
 
@@ -10,7 +11,11 @@ var jwt = require('jsonwebtoken');
 
 @Injectable()
 export class AuthService {
-  constructor(private readonly bcryptSrv: BcryptService, private readonly userSrv: UserService) {}
+  constructor(
+    private readonly bcryptSrv: BcryptService,
+    private readonly userSrv: UserService,
+    private jwtService: JwtService,
+  ) {}
 
   async register(body: RegisterDto) {
     const { email, username } = body;
@@ -39,12 +44,9 @@ export class AuthService {
     if (!passwordIsValid) {
       throw new BadRequestException('Invalid password');
     }
-    let token = jwt.sign({ id: user.id }, process.env.SECRET_KEY, {
-      expiresIn: 86400, // 24 hours
-    });
     return {
       user,
-      token,
+      token: this.jwtService.sign({ id: user.id }),
     };
   }
 }

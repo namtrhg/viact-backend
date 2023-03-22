@@ -1,4 +1,9 @@
-import { ClassSerializerInterceptor, INestApplication, Module, ValidationPipe } from '@nestjs/common';
+import {
+  ClassSerializerInterceptor,
+  INestApplication,
+  Module,
+  ValidationPipe,
+} from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule, TypeOrmModuleOptions } from '@nestjs/typeorm';
 import { attachRequestMiddleware } from 'common/middlewares/attach-request.middleware';
@@ -21,11 +26,10 @@ import { UserModule } from './user/user.module';
       },
     }),
     UserModule,
-    AuthModule
+    AuthModule,
   ],
 })
 export class AppModule {}
-
 
 /**
  * Init nest app for testing or live run
